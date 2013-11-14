@@ -170,6 +170,18 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
         fields = ('date_donated', 'project',  'member')
 
 
+class ManageDonationPreviewSerializer(DonationPreviewSerializer):
+    """
+    For displaying donations on project campaign dashboard
+    """
+    member = UserPreviewSerializer(source='user')
+    date_donated = serializers.DateTimeField(source='ready')
+
+    class Meta:
+        model = Donation
+        fields = ('date_donated', 'amount',  'member', 'donation_type')
+
+
 class ManageProjectSerializer(serializers.ModelSerializer):
 
     id = serializers.CharField(source='slug', read_only=True)

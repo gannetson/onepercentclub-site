@@ -1,9 +1,11 @@
+from rest_framework.status import HTTP_403_FORBIDDEN
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
 from django.db.models.query_utils import Q
+from django.http.response import HttpResponseNotAllowed
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer, ManageDonationPreviewSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -241,6 +243,36 @@ class ProjectDonationList(generics.ListAPIView):
         else:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
+
+        queryset = queryset.filter(project=project)
+        queryset = queryset.order_by("-ready")
+        queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
+
+        return queryset
+
+
+class ManageProjectDonationList(generics.ListAPIView):
+    model = Donation
+    serializer_class = ManageDonationPreviewSerializer
+    paginate_by = 10
+    permission_classes = (IsAuthenticated, )
+    filter_fields = ('status', )
+
+    def get_queryset(self):
+        queryset = super(ManageProjectDonationList, self).get_queryset()
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
+        if project_slug:
+            try:
+                project = Project.objects.get(slug=project_slug)
+            except Project.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': queryset.model._meta.verbose_name})
+        else:
+            raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                          {'verbose_name': queryset.model._meta.verbose_name})
+
+        if project.owner != self.request.user:
+            raise Http404(_(u"You don't have permission to view donations for this project"))
 
         queryset = queryset.filter(project=project)
         queryset = queryset.order_by("-ready")

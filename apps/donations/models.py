@@ -56,9 +56,9 @@ def new_oneoff_donation(sender, instance, **kwargs):
 
         existing_donation = Donation.objects.get(pk=instance.pk)
         # If the existing donation is already pending, don't mail.
-        if existing_donation.status == DonationStatuses.pending:
+        if existing_donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
             return
 
     # If the donation status will be pending, send a mail.
-    if instance.status == DonationStatuses.pending:
+    if instance.status in [DonationStatuses.pending, DonationStatuses.paid]:
         mail_new_oneoff_donation(instance)

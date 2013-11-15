@@ -2,7 +2,7 @@ function setCookie(name, value, expireDays){
     var expireDate = new Date();
     expireDate.setDate(expireDate.getDate() + expireDays);
     var value=escape(value) + ((expireDays==null) ? "" : "; expires=" + expireDate.toUTCString());
-    document.cookie = name + "=" + value;
+    document.cookie = name + "=" + value + '; path=/';
 }
 
 function getCookie(name) {
@@ -66,5 +66,9 @@ $.ajaxSetup({
 // https://github.com/francois2metz/html5-formdata
 if (Em.isNone(File)) {
     var File = function(){};
+}
+
+if (Em.isNone(document.head)){
+    document.head = document.getElementsByTagName('head')[0];
 }
 

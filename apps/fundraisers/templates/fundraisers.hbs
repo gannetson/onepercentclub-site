@@ -242,11 +242,12 @@
                 </span>
                 {{/if}}
             </article>
-
             <article class="project-info">
+                {{#linkTo 'fundRaiserDonationList' id}}{% trans "Donations" %}{{/linkTo}}
+
                 {{view App.SocialShareView}}
-                <h1 class="project-title">{{title}}</h1>
-                <p class="project-description">{{description}}</p>
+                <h1 class="fundraiser-title">{{title}}</h1>
+                <p class="fundraiser-description">{{description}}</p>
             </article>
 
             <article class="fundraiser-member">
@@ -263,6 +264,24 @@
                         <span class="flaticon solid wallet-1"></span>
                         {% trans "Support" %} {{owner.first_name}}
                     </a>
+                </div>
+
+                <figure class="fundraiser-image l-half">
+                    <span class="member-avatar">
+                        <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
+                            <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} width="50%" />
+                        </a>
+                    </span>
+                </figure>
+
+                <div>
+                    {% trans "Fundraiser" %} <a class="membe TODO" {{action 'openInBigBox' 'userModal' owner }}>{{owner.full_name}}</a>
+
+                    <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                        <span class="flaticon solid wallet-1"></span>
+                        {% trans "Support" %} {{owner.first_name}}
+                    </a>
+                    {{!-- TODO: fix donations + backlink from donations to fundraisers --}}
                 </div>
 
             </article>

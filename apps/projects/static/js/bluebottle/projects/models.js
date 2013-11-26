@@ -183,6 +183,8 @@ App.Project = DS.Model.extend({
 
     taskCount: DS.attr('number'),
 
+    isCampaign: DS.attr('boolean'),
+
     isPhasePlan: Em.computed.equal('phase', 'plan'),
     isPhaseCampaign: Em.computed.equal('phase', 'campaign'),
     isPhaseAct: Em.computed.equal('phase', 'act'),
@@ -509,7 +511,6 @@ App.MyProjectCampaign = App.ProjectCampaign.extend({
     moneyAsked: DS.attr('number'),
     moneyDonated: DS.attr('number'),
     deadline: DS.attr('date')
-
 });
 
 

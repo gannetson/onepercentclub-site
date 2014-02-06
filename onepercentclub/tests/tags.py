@@ -1,8 +1,8 @@
 from django.utils import unittest
 from taggit.models import Tag
 from bluebottle.accounts.tests import UserTestsMixin
-from apps.organizations.tests import OrganizationTestsMixin
-from apps.projects.tests import ProjectTestsMixin
+from organizations.tests import OrganizationTestsMixin
+from projects.tests import ProjectTestsMixin
 
 
 class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, UserTestsMixin):

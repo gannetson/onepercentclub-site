@@ -151,7 +151,7 @@ TEMPLATE_LOADERS = [
 MIDDLEWARE_CLASSES = [
     'apps.redirects.middleware.RedirectHashCompatMiddleware',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
-    'bluebottle.bluebottle_utils.middleware.SubDomainSessionMiddleware',
+    'bluebottle.utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -211,7 +211,7 @@ INSTALLED_APPS = (
     'compressor',
     'sorl.thumbnail',
     'taggit',
-    'taggit_autocomplete_modified',
+    #'taggit_autocomplete_modified',
     'micawber.contrib.mcdjango',  # Embedding videos
     'templatetag_handlebars',
     'rest_framework',
@@ -242,12 +242,11 @@ INSTALLED_APPS = (
 
     # bluebottle apps
     'bluebottle.accounts',
-    # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
     'bluebottle.common',
 
     'apps.blogs',
     'apps.bluebottle_dashboard',
-    'bluebottle.bluebottle_utils',
+    'bluebottle.utils',
     'apps.contentplugins',
     'apps.love',
     'apps.organizations',
@@ -283,6 +282,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 )
+
+# Custom User model
+AUTH_USER_MODEL = 'accounts.BlueBottleUser'
+PROJECTS_PROJECT_MODEL = 'projects.Project'
+TASKS_TASK_MODEL = 'tasks.Task'
+ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.organization'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -407,9 +412,6 @@ COMPRESS_CSS_FILTERS = [
 # The default URL to send users to after login. This will be used when the
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
-
-# Custom User model
-AUTH_USER_MODEL = 'accounts.BlueBottleUser'
 
 # Blog/news content configuration
 FLUENT_CONTENTS_CACHE_OUTPUT = True

@@ -8,7 +8,7 @@ from rest_framework import status
 from bluebottle.utils.tests import UserTestsMixin
 
 from mail import send_mail
-from projects.tests import ProjectWallPostTestsMixin
+from onepercent_projects.tests import ProjectWallPostTestsMixin
 from .models import Reaction
 
 

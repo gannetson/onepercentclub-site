@@ -9,9 +9,9 @@ from fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from vouchers.models import Voucher, VoucherStatuses
 from organizations.models import Organization
 from bluebottle.accounts.models import BlueBottleUser
-from projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
+from onepercent_projects.models import OnePercentProject, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
     ProjectAmbassador, ProjectPhases
-from tasks.models import Task, TaskMember
+from onepercent_tasks.models import Task, TaskMember
 
 logger = logging.getLogger('bluebottle.salesforce')
 
@@ -234,7 +234,7 @@ def generate_projects_csv_file(path, loglevel):
                             "Date_project_realized__c", "Date_project_failed__c", "Date_project_result__c",
                             "Date_project_deadline__c"])
 
-        projects = Project.objects.all()
+        projects = OnePercentProject.objects.all()
 
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 

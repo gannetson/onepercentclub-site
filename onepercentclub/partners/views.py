@@ -1,5 +1,5 @@
 from partners.serializers import PartnerOrganizationSerializer
-from projects.models import Project, PartnerOrganization
+from onepercent_projects.models import OnePercentProject, PartnerOrganization
 from django.contrib.sites.models import Site
 from django.views.generic.list import ListView
 from rest_framework import generics
@@ -17,8 +17,8 @@ class PartnerDetail(generics.RetrieveAPIView):
 class MacroMicroListView(ListView):
 
     template_name = 'macromicro_list.html'
-    model = Project
-    queryset = Project.objects.filter(partner_organization__slug='macro_micro')
+    model = OnePercentProject
+    queryset = OnePercentProject.objects.filter(partner_organization__slug='macro_micro')
 
     def render_to_response(self, context, **response_kwargs):
         return super(MacroMicroListView, self).render_to_response(

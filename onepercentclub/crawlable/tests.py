@@ -5,8 +5,8 @@ from django.test import TestCase, RequestFactory, LiveServerTestCase
 from django.test.utils import override_settings
 from django.utils.text import slugify
 
-from projects.models import ProjectPlan, ProjectPhases
-from projects.tests import ProjectTestsMixin
+from onepercent_projects.models import ProjectPlan, ProjectPhases
+from onepercent_projects.tests import ProjectTestsMixin
 from .middleware import HASHBANG, ESCAPED_FRAGMENT, HashbangMiddleware
 
 

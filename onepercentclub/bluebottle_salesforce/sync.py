@@ -2,10 +2,10 @@ import logging
 from registration.models import RegistrationProfile
 from bluebottle.accounts.models import BlueBottleUser
 from cowry_docdata.models import payment_method_mapping
-from projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
+from onepercent_projects.models import OnePercentProject, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
     ProjectPhases, ProjectAmbassador
 from organizations.models import Organization
-from tasks.models import Task, TaskMember
+from onepercent_tasks.models import Task, TaskMember
 from fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from vouchers.models import Voucher, VoucherStatuses
 
@@ -208,7 +208,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    projects = Project.objects.all()
+    projects = OnePercentProject.objects.all()
 
     if sync_from_datetime:
         projects = projects.filter(updated__gte=sync_from_datetime)

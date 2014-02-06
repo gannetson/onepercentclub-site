@@ -27,6 +27,7 @@
 
 {% block handlebars_templates %}
     {% include  "accounts/base.hbs" %}
+    {% include  "utils/base.hbs" %}
 
     {% include  "homepage.hbs" %}
     {% include  "wallposts.hbs" %}
@@ -61,6 +62,12 @@
     <script type="text/javascript" src="{% static "js/bluebottle/accounts/views.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/accounts/routes.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/accounts/components.js" %}"></script>
+
+    <script type="text/javascript" src="{% static "js/bluebottle/utils/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/utils/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/utils/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/utils/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/utils/components.js" %}"></script>
 
     <script type="text/javascript" src="{% static "js/bluebottle/projects/models.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>

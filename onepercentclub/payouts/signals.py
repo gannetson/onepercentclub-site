@@ -2,7 +2,7 @@ from dateutil.relativedelta import relativedelta
 
 from django.utils import timezone
 
-from projects.models import ProjectPhases
+from onepercent_projects.models import ProjectPhases
 
 from .models import Payout
 from .choices import PayoutLineStatuses

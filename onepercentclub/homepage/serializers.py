@@ -1,7 +1,7 @@
 from banners.serializers import SlideSerializer
 from campaigns.serializers import CampaignSerializer
 from fundraisers.serializers import FundRaiserSerializer
-from projects.serializers import ProjectPreviewSerializer
+from onepercent_projects.serializers import ProjectPreviewSerializer
 from quotes.serializers import QuoteSerializer
 from statistics.serializers import StatisticSerializer
 

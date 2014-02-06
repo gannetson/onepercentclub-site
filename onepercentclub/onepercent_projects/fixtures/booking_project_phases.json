@@ -1,0 +1,86 @@
+[
+{
+    "pk": 1, 
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": false, 
+        "name": "Plan - New", 
+        "sequence": 1, 
+        "editable": true, 
+        "active": true, 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": false, 
+        "name": "Plan - Submitted", 
+        "sequence": 2, 
+        "editable": false, 
+        "active": true, 
+        "description": ""
+    }
+},
+{
+    "pk": 3, 
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": false, 
+        "name": "Plan - Needs Work", 
+        "sequence": 3, 
+        "editable": true, 
+        "active": true, 
+        "description": ""
+    }
+},
+{
+    "pk": 4, 
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": false, 
+        "name": "Plan - Rejected", 
+        "sequence": 4, 
+        "editable": false, 
+        "active": true, 
+        "description": ""
+    }
+},
+{
+    "pk": 4,
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": true, 
+        "name": "Campaign",
+        "sequence": 4,
+        "editable": true, 
+        "active": true, 
+        "description": ""
+    }
+},
+{
+    "pk": 5,
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": true, 
+        "name": "Done",
+        "sequence": 5,
+        "editable": false, 
+        "active": true, 
+        "description": ""
+    }
+},
+{
+    "pk": 6,
+    "model": "projects.projectphase", 
+    "fields": {
+        "viewable": false, 
+        "name": "Stopped",
+        "sequence": 6,
+        "editable": false, 
+        "active": true, 
+        "description": ""
+    }
+}
+]

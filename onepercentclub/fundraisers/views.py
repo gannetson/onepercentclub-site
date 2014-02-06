@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from bluebottle.bluebottle_drf2.views import RetrieveUpdateDeleteAPIView, ListCreateAPIView, ListAPIView
 from rest_framework import permissions, exceptions
 
-from projects.models import Project
+from onepercent_projects.models import OnePercentProject
 
 from .models import FundRaiser
 from .serializers import FundRaiserSerializer
@@ -24,10 +24,10 @@ class FundRaiserListView(ListCreateAPIView):
         project_slug = self.request.QUERY_PARAMS.get('project', None)
         if project_slug:
             try:
-                project = Project.objects.get(slug=project_slug)
-            except Project.DoesNotExist:
+                project = OnePercentProject.objects.get(slug=project_slug)
+            except OnePercentProject.DoesNotExist:
                 raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                              {'verbose_name': Project._meta.verbose_name})
+                              {'verbose_name': OnePercentProject._meta.verbose_name})
 
             filter_kwargs['project'] = project
 

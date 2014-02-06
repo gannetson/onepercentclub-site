@@ -6,8 +6,8 @@ from django.test import TestCase
 
 from django_dynamic_fixture import N, G
 
-from projects.models import (
-    Project, ProjectPhases, ProjectCampaign, ProjectPlan
+from onepercent_projects.models import (
+    OnePercentProject, ProjectPhases, ProjectCampaign, ProjectPlan
 )
 from fund.models import Donation, DonationStatuses
 
@@ -25,7 +25,7 @@ class PayoutTestCase(TestCase):
     def setUp(self):
         """ Setup a project ready for payout. """
         self.project = G(
-            Project
+            OnePercentProject
         )
 
         self.campaign = G(
@@ -274,7 +274,7 @@ class OrganizationPayoutTestCase(TestCase):
         """
 
         self.project = G(
-            Project
+            OnePercentProject
         )
 
         self.campaign = G(

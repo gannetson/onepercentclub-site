@@ -1,7 +1,7 @@
 from django.dispatch import receiver
 from fund.models import Order, OrderStatuses, RecurringDirectDebitPayment
-from projects.models import Project
-from projects.signals import project_funded
+from onepercent_projects.models import OnePercentProject
+from onepercent_projects.signals import project_funded
 
 from .mails import *
 

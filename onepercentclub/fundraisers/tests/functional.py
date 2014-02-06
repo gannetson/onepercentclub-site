@@ -8,7 +8,7 @@ from bluebottle.utils.tests import UserTestsMixin
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from fund.models import DonationStatuses, Donation, OrderStatuses
-from projects.tests.unittests import ProjectTestsMixin
+from onepercent_projects.tests.unittests import ProjectTestsMixin
 from donations.tests.helpers import DonationTestsMixin
 
 from ..models import FundRaiser

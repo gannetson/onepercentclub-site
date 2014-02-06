@@ -6,7 +6,7 @@ from django.core.cache import cache
 from banners.models import Slide
 from campaigns.models import Campaign
 from fundraisers.models import FundRaiser
-from projects.models import Project
+from onepercent_projects.models import OnePercentProject
 from quotes.models import Quote
 from statistics.models import Statistic
 
@@ -24,7 +24,7 @@ class HomePage(object):
             self.stats = stats[0]
         else:
             self.stats = None
-        projects = Project.objects.filter(phase='campaign').order_by('?')
+        projects = OnePercentProject.objects.filter(phase='campaign').order_by('?')
         if len(projects) > 4:
             self.projects = projects[0:4]
         elif len(projects) > 0:

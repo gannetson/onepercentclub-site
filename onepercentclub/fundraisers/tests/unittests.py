@@ -12,7 +12,7 @@ from bluebottle.utils.tests import UserTestsMixin
 
 from donations.tests.helpers import DonationTestsMixin
 from fund.models import DonationStatuses, Donation
-from projects.tests.unittests import ProjectTestsMixin
+from onepercent_projects.tests.unittests import ProjectTestsMixin
 
 from .helpers import FundRaiserTestsMixin
 

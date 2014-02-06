@@ -17,7 +17,7 @@ from bluebottle.accounts.models import BlueBottleUser
 from bluebottle.geo.models import Region
 
 
-from projects.tests import ProjectTestsMixin
+from onepercent_projects.tests import ProjectTestsMixin
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 

@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
-from projects.models import Project
+from onepercent_projects.models import OnePercentProject
 from sepa.sepa import SepaDocument, SepaAccount
 from cowry.models import Payment, PaymentStatuses
 
@@ -110,7 +110,7 @@ class Payout(PayoutBase):
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey('onepercent_projects.OnePercentProject')
 
     payout_rule = models.CharField(
         _("Payout rule"), max_length=20,
@@ -610,5 +610,5 @@ def match_debit_mutations():
 from .signals import create_payout_for_fully_funded_project
 
 post_save.connect(
-    create_payout_for_fully_funded_project, weak=False, sender=Project
+    create_payout_for_fully_funded_project, weak=False, sender=OnePercentProject
 )

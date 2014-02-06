@@ -11,7 +11,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from campaigns.models import Campaign
 from fundraisers.tests.helpers import FundRaiserTestsMixin
 
-from projects.tests.unittests import ProjectTestsMixin
+from onepercent_projects.tests.unittests import ProjectTestsMixin
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')

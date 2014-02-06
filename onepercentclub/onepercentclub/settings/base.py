@@ -247,15 +247,16 @@ INSTALLED_APPS = (
     'bluebottle.utils',
 
     #'bluebottle.tasks',
-    #'bluebottle.projects',
+    'bluebottle.projects',
     #'bluebottle.organizations',
     #'bluebottle.wallposts'
+
+    'onepercent_tasks',
 
     'core',
     'wallposts',
     'organizations',
-    'projects',
-    'tasks',
+    'onepercent_projects',
     'banners',
     'quotes',
     'pages',
@@ -292,9 +293,9 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'accounts.BlueBottleUser'
-PROJECTS_PROJECT_MODEL = 'projects.Project'
-TASKS_TASK_MODEL = 'tasks.Task'
-ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.organization'
+PROJECTS_PROJECT_MODEL = 'onepercent_projects.OnePercentProject'
+TASKS_TASK_MODEL = 'onepercent_tasks.OnePercentTask'
+ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

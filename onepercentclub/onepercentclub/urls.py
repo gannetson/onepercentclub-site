@@ -19,12 +19,12 @@ urlpatterns = patterns('',
     url(r'^api/utils/', include('bluebottle.utils.urls.api')),
     url(r'^api/geo/', include('bluebottle.geo.urls.api')),
 
-    url(r'^api/projects/', include('projects.urlsapi')),
+    url(r'^api/projects/', include('onepercent_projects.urlsapi')),
     url(r'^api/blogs/', include('blogs.urlsapi')),
     url(r'^api/wallposts/', include('wallposts.urlsapi')),
     url(r'^api/fund/', include('fund.urlsapi')),
     url(r'^api/fundraisers/', include('fundraisers.urlsapi')),
-    url(r'^api/tasks/', include('tasks.urlsapi')),
+    url(r'^api/tasks/', include('onepercent_tasks.urlsapi')),
     url(r'^api/organizations/', include('organizations.urlsapi')),
     url(r'^api/pages/', include('pages.urlsapi')),
     url(r'^api/partners/', include('partners.urlsapi')),
@@ -75,7 +75,7 @@ urlpatterns += i18n_patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
     # Project view that search engines will use.
-    url(r'^projects/', include('projects.urls')),
+    url(r'^projects/', include('onepercent_projects.urls')),
 
     # Organization urls for downloading private documents
     url(r'^documents/', include('bluebottle.utils.urls.main')),

@@ -317,6 +317,10 @@ def prepare_django():
         run('chmod a+rw static/media')
 
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
+
+        # Bower install. Needed by admin charts.
+        run_web('./manage.py bower_install')
+        
         run_web('./manage.py collectstatic --clear -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails

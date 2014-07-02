@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@f7e0d17b9faf497f663fb52e72992fac54dc296f#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@4e7ab1f5f0cd19bbc03d12601fc2a529d6aee137#egg=bluebottle
 
 pip
 mercurial==2.9.1

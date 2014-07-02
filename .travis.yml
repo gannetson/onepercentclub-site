@@ -7,8 +7,8 @@ addons:
   sauce_connect: true
 env:
   global:
-  - secure: Lk0QcqUBCF8VUYqNyClVZigygRG3KH+P+EJDCGjtz36UnAuYJw4oLVGTg8LQKiH3maxqds9HcG/yO6hEWGemLmr/ZPS+LHmW6VsbnCCetB+nkb/9kDxnZsrlfWjoBtkwOUtgL4O9rZjCHPtS8Td+5buKZuMZpu0KKDofZheg+mU=
-  - secure: F/RZH2pOfhpD3V3WtHJKQwtz5JyI6J5xUC3N1oltTUgxIGT45FjTk3Vdav9OczxGareNXbTK46Xi3DlRomAvMJ9rbFI5jK2RJkCtfbl5yNhZEJJClE7p87nE8Q9nrZkH7CHL9ITrHXIKd0SHLy3xxH6gr1vah4KbRUGbD6suSCA=
+  - secure: AD4TuJWM+avyR22gz/O22XrMDsZeW9IC0usdlEPtUOx7rgqwLLdsZvAaSW3lg4b+CeFltT/q6wnjSvmxq8icxqsRuBUc7JyTEntLzlEt6qo8Ayu61pycnRYelk7GXIilb85hT0MKrHh/QqD/7I/LtfrUmsnLDfUB0jYB6kdB2iM=
+  - secure: BkxendxmhcAzpQcgJadvtiHrHQ1b7ZC43RKV1rDtHVrKvhjE4hzxPv3W+fnHYaZKcKNgtHPiRCMrRt9NUI+sy/25KF8hfN4vFpfhy8Hj0bZnDa0T8Usr4tBLy7JhI93ViUu4y/rSJLAWEuip6BSVaoC8+MyaOzbX9snv+Kox/IY=
 services:
 - memcached
 before_install:
@@ -19,7 +19,8 @@ before_install:
 - sudo apt-get install -qq memcached python-memcache
 install:
 - export DISPLAY=:99.0
-- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 - pip install --upgrade setuptools --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/
   -r requirements/ci_requirements.txt
@@ -29,7 +30,8 @@ before_script:
 - pip show bluebottle
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
+- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v
+  1
 notifications:
   hipchat:
     rooms:

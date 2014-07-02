@@ -7,8 +7,8 @@ addons:
   sauce_connect: true
 env:
   global:
-  - secure: AD4TuJWM+avyR22gz/O22XrMDsZeW9IC0usdlEPtUOx7rgqwLLdsZvAaSW3lg4b+CeFltT/q6wnjSvmxq8icxqsRuBUc7JyTEntLzlEt6qo8Ayu61pycnRYelk7GXIilb85hT0MKrHh/QqD/7I/LtfrUmsnLDfUB0jYB6kdB2iM=
-  - secure: BkxendxmhcAzpQcgJadvtiHrHQ1b7ZC43RKV1rDtHVrKvhjE4hzxPv3W+fnHYaZKcKNgtHPiRCMrRt9NUI+sy/25KF8hfN4vFpfhy8Hj0bZnDa0T8Usr4tBLy7JhI93ViUu4y/rSJLAWEuip6BSVaoC8+MyaOzbX9snv+Kox/IY=
+  - secure: aJOXcRy7b35heVBlqSZRCiw9pNt34At87TgsKaCwEgf5/fC1CPFa8el9AtlyU6uw/dk1bCcfaqB9K5s9j//qm5ZQQE8Xgr57BJ7anqrW8VH2hE1gUb8AE+hv4zVWTUwK1wIg9njfXObqSiioSy20FihWPrut5OnE941TOK2Ffes=
+  - secure: LHK8n6J/SAsMYMFHpAs7bVknu/zZ1ABK4CC5OuR/3bOOzFYPWzAgtclX6UEKL5BanxYYNH7qHVDCc6HB3RDknFk4+KtxidkysQmV8CwQiGlclBW+Uozo78a2VXPhvuB83IERwYohz49QlBiYzyXpOi5gwfx9nFBB6ExdffFFlXM=
 services:
 - memcached
 before_install:

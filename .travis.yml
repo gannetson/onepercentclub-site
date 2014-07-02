@@ -3,8 +3,14 @@ python:
 - '2.7'
 node_js:
 - '0.10'
+addons:
+  sauce_connect: true
 env:
-- DJANGO=django==1.5.4
+  global:
+  - secure: SzMYzAnIHxHEKHEOJEY5jchkx5AZGQ/c0tHPAgv/CwA5jJpjAFNTyyeu4ufiXAg5d3ZxAEwnBIvnXl2T2jfkBUMLhuqeaeqnT1BgUS2ZzPAoZshQbYacmy6xDg1iySWyHR5uMdSF6XwrXKEpd9V26o7fLPMUBeCeQuxkrkcPKds=
+  - secure: MadgOYHJmWUlRlzdxJl/wyLJh9UzcV8KrCiOLE4bRWynoAulxgOCbsZFvMHnwjT+UTn+jm0J7lWOKpbehxQlHggdZSLocY7VvofWlfIu00rilfslvSDE7ggkwR/okEmUbokcyX5GycxcdjBaAx0d/iF0Vp7LifvpTkpiJBp9bAI=
+  - secure: iof+Q1i8rAsZ6iogMDCYjPHYOvUelGaHCQrgW/fdX7OXU7XWS4itqAgbt36P30hVnw3y75Ap5/WvASu8BAhrslrS7LCF8sdVyZuEKnYI4f/juryKZa8C/AdXrdQlFjvX5BQ3I3/wTha4o7JMZ1IHetz3fXRduyWV2ytdgapede4=
+  - secure: fOWTq6s+hAVejK+duuk+yX3S6B9KuQEBCqduUnegXBsft9Kk/m8kCpbHDMTSP3HmYBtXl5t7R56N1gRXKwNDzrmlqX9XzLkMQFVd6xC4+XGX53UiZgbY9E7pWQWQyKWyw6mchHGXEq9hJCEHTzPHmPA3QInJD8Kk6r0BqqQLN/c=
 services:
 - memcached
 before_install:
@@ -17,8 +23,8 @@ install:
 - export DISPLAY=:99.0
 - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 - pip install --upgrade setuptools --use-mirrors
-- pip install $DJANGO --use-mirrors
-- pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
+- pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/
+  -r requirements/ci_requirements.txt
 - pip install Pillow --use-mirrors
 - touch onepercentclub/settings/secrets.py
 before_script:

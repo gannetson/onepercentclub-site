@@ -9,7 +9,7 @@ class MemberSettingsTests(OnePercentSeleniumTestCase):
 
     """ Confirm login failure works """ 
     def test_failed_login(self):
-        self.login('fake@example.com', 'fake', wait_time=1)
+        self.login('fake@example.com', 'fake', wait_time=30)
 
         # Should see an error message
-        self.assert_css('.modal-flash-message', wait_time=1)
+        self.assert_css('.modal-flash-message', wait_time=2)

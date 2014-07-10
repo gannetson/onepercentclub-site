@@ -66,7 +66,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         Test project donation by an anonymous user
         """
         self.visit_path('/projects/women-first')
-        self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=10))
+        self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=30))
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
 
         donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
@@ -75,7 +75,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()
 
-        self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
+        self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=30))
 
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text[:11], u'WOMEN FIRST')
 
@@ -102,7 +102,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # Continue with our donation, fill in the details
 
         self.browser.find_by_css('.btn-next').first.click()
-        self.assertTrue(self.browser.is_text_present('Your full name', wait_time=1))
+        self.assertTrue(self.browser.is_text_present('Your full name', wait_time=30))
 
         # NOTE: making use of fill_form_by_css() might be a better idea
 
@@ -135,7 +135,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # RuntimeError: Failed to shutdown the live test server in 2 seconds.
         # The server might be stuck or generating a slow response.
 
-        time.sleep(3)
+        time.sleep(10)
 
 
         # FIXME: These tests fail on Travis.
@@ -172,7 +172,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
 
         # Validate thank you page.
-        self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!', wait_time=10))
+        self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!', wait_time=30))
         self.assertTrue(self.browser.is_text_present(self._projects[0].title.upper()))
 
         # check that the correct links are present

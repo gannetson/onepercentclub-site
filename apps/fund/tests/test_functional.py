@@ -61,7 +61,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                         'Cannot load the project list page.')
 
-    @skipUnless(False)
+    @skipUnless(False, 'skip anonymous donation test for now')
     def test_view_project_page_with_donation(self):
         """
         Test project donation by an anonymous user

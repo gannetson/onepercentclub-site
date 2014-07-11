@@ -9,7 +9,7 @@ from bluebottle.bb_projects.models import ProjectPhase
 
 from django.conf import settings
 from django.utils.text import slugify
-from django.utils.unittest.case import skipUnless
+from django.utils.unittest.case import skipUnless, skip
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
@@ -61,7 +61,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                         'Cannot load the project list page.')
 
-    @skipUnless(False, 'skip anonymous donation test for now')
+    @skip('Skip anonymous donation test for now')
     def test_view_project_page_with_donation(self):
         """
         Test project donation by an anonymous user

@@ -9,7 +9,7 @@ class MemberSettingsTests(OnePercentSeleniumTestCase):
 
     """ Confirm login failure works """
     def test_failed_login(self):
-        self.login('fake@example.com', 'fake', wait_time=10)
+        self.assertFalse(self.login('fake@example.com', 'fake', wait_time=10))
 
         # Should see an error message
         self.assertTrue(self.browser.is_text_present('Unable to login', wait_time=30))

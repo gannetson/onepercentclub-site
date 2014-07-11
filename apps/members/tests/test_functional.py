@@ -8,7 +8,6 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 class MemberSettingsTests(OnePercentSeleniumTestCase):
 
     """ Confirm login failure works """
-    @skip('Skip failed login on wrong credentials for now.')
     def test_failed_login(self):
         self.login('fake@example.com', 'fake', wait_time=30)
 

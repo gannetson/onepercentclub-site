@@ -203,8 +203,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.country_1 = CountryFactory.create(name="Afghanistan")
         self.country_2 = CountryFactory.create(name="Albania")
 
-        self.login(self.user.email, 'testing')
-
         self.project_data = {
             'title': 'Velit esse cillum dolore',
             'slug': 'velit-esse-cillum-dolore',
@@ -225,6 +223,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         """
         Creating a project. The positive flow.
         """
+        self.login(self.user.email, 'testing')
+
 
         self.visit_path('/my/projects')
 
@@ -377,6 +377,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         Project.objects.filter(slug=self.project_data['slug']).exists()
 
     def test_change_project_goal(self):
+
+        self.login(self.user.email, 'testing')
+
         plan_phase = ProjectPhase.objects.get(slug='plan-new')
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user, status=plan_phase)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))

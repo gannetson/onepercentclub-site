@@ -55,6 +55,9 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
                                'city': 'Amsterdam',
                                'country': 'NL'}
 
+    def tearDown(self):
+        self.visit_homepage()
+
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
 
@@ -69,6 +72,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=30))
         donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
 
+        time.sleep(5)
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()

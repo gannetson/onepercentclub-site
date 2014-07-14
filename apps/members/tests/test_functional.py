@@ -8,14 +8,13 @@ from django.utils.translation import ugettext as _
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
-    def setUp(self):
+    def test_failed_login_missing_email(self):
+        """ Confirm login fails without email and shows an error message """
+
         self.visit_homepage()
         # Find the link to the signup button page and click it.
         self.scroll_to_and_click_by_css('.nav-signup-login a')
         self.wait_for_element_css('.modal-fullscreen-content')
-
-    """ Confirm login fails without email and shows an error message """
-    def test_failed_login_missing_email(self):
 
         # Fill in details.
         self.browser.find_by_css('input[type=password]').fill('fake')
@@ -25,8 +24,13 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.assert_css('.modal-flash-message', wait_time=10)
         self.assert_text(_("Email required"))
 
-    """ Confirm login fails without password and shows an error message """
     def test_failed_login_missing_password(self):
+        """ Confirm login fails without password and shows an error message """
+        self.visit_homepage()
+        # Find the link to the signup button page and click it.
+        self.scroll_to_and_click_by_css('.nav-signup-login a')
+        self.wait_for_element_css('.modal-fullscreen-content')
+
         # Fill in details.
         self.browser.find_by_css('input[name=username]').fill('fake@fake.fk')
         self.browser.find_by_css("a[name=login]").click()
@@ -35,8 +39,13 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.assert_css('.modal-flash-message', wait_time=10)
         self.assert_text(_("Password required"))
 
-    """ Confirm login failure works """
     def test_failed_login_wrong_credentials(self):
+        """ Confirm login fails with wrong credentials and shows an error message """
+        self.visit_homepage()
+        # Find the link to the signup button page and click it.
+        self.scroll_to_and_click_by_css('.nav-signup-login a')
+        self.wait_for_element_css('.modal-fullscreen-content')
+
         # Fill in details.
         self.browser.find_by_css('input[name=username]').fill('fake@fake.fk')
         self.browser.find_by_css('input[type=password]').fill('fake')

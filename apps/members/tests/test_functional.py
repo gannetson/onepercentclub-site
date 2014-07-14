@@ -12,14 +12,16 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
     def setUp(self):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
+        self.visit_homepage()
+        self.scroll_to_and_click_by_css('.nav-signup-login a')
+        self.wait_for_element_css('.modal-fullscreen-content')
+
+    def tearDown(self):
+        self.scroll_to_and_click_by_css('.modal-fullscreen-close')
+
 
     def test_failed_login_missing_email(self):
         """ Confirm login fails without email and shows an error message """
-
-        self.visit_homepage()
-        # Find the link to the signup button page and click it.
-        self.scroll_to_and_click_by_css('.nav-signup-login a')
-        self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
         self.browser.find_by_css('input[type=password]').fill('fake')
@@ -31,10 +33,6 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
     def test_failed_login_missing_password(self):
         """ Confirm login fails without password and shows an error message """
-        self.visit_homepage()
-        # Find the link to the signup button page and click it.
-        self.scroll_to_and_click_by_css('.nav-signup-login a')
-        self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
         self.browser.find_by_css('input[name=username]').fill(self.user.email)
@@ -46,10 +44,6 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
     def test_failed_login_wrong_credentials(self):
         """ Confirm login fails with wrong credentials and shows an error message """
-        self.visit_homepage()
-        # Find the link to the signup button page and click it.
-        self.scroll_to_and_click_by_css('.nav-signup-login a')
-        self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
         self.browser.find_by_css('input[name=username]').fill(self.user.email)

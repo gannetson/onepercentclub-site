@@ -10,7 +10,6 @@ from django.utils.translation import ugettext as _
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
     def setUp(self):
-
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
 

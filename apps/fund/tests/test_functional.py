@@ -19,8 +19,6 @@ from onepercentclub.tests.factory_models.project_factories import OnePercentProj
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-@skipUnless(getattr(settings, 'COWRY_DOCDATA_MERCHANT_NAME', False),
-            'Payment & donations tests disabled mithout COWRY_DOCDATA_MERCHANT_NAME in settings.')
 class DonationSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.

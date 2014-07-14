@@ -44,4 +44,4 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         # self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Password required"))
+        # self.assert_text(_("Unable to login with provided credentials."))

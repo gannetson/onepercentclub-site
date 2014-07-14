@@ -1,3 +1,4 @@
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from django.conf import settings
 from django.utils.unittest.case import skipUnless
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
@@ -7,6 +8,11 @@ from django.utils.translation import ugettext as _
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
+
+    def setUp(self):
+
+        self.init_projects()
+        self.user = BlueBottleUserFactory.create()
 
     def test_failed_login_missing_email(self):
         """ Confirm login fails without email and shows an error message """
@@ -32,7 +38,7 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
-        self.browser.find_by_css('input[name=username]').fill('fake@fake.fk')
+        self.browser.find_by_css('input[name=username]').fill(self.user.email)
         self.browser.find_by_css("a[name=login]").click()
 
         # Should see an error message
@@ -47,7 +53,7 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
-        self.browser.find_by_css('input[name=username]').fill('fake@fake.fk')
+        self.browser.find_by_css('input[name=username]').fill(self.user.email)
         self.browser.find_by_css('input[type=password]').fill('fake')
         self.browser.find_by_css("a[name=login]").click()
 

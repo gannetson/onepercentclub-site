@@ -31,7 +31,7 @@ before_script:
 - pip show bluebottle
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 script:
-- python ./manage.py test apps.fund.tests.test_functional --settings=onepercentclub.settings.travis -v3 # --failfast
+- python ./manage.py test --settings=onepercentclub.settings.travis -v3 # --failfast
 notifications:
   hipchat:
     rooms:

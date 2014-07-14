@@ -19,6 +19,8 @@ from onepercentclub.tests.factory_models.project_factories import OnePercentProj
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+@skipUnless(getattr(settings, 'COWRY_DOCDATA_MERCHANT_NAME', False),
+            'Payment & donations tests disabled mithout COWRY_DOCDATA_MERCHANT_NAME in settings.')
 class DonationSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
@@ -61,7 +63,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                         'Cannot load the project list page.')
 
-    @skip('Skip anonymous donation test for now')
     def test_view_project_page_with_donation(self):
         """
         Test project donation by an anonymous user

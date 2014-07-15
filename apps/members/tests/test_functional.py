@@ -17,8 +17,7 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.wait_for_element_css('.modal-fullscreen-content')
 
     def tearDown(self):
-        self.scroll_to_and_click_by_css('.modal-fullscreen-close')
-
+        pass
 
     def test_failed_login_missing_email(self):
         """ Confirm login fails without email and shows an error message """

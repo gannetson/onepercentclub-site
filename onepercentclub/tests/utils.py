@@ -83,8 +83,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.wait_for_element_css(logout)
         self.browser.find_by_css(logout).click()
         self.assert_css('.nav-signup-login a')
-        return True
-
 
     def visit_homepage(self, lang_code=None):
         """
@@ -97,7 +95,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
         self.assert_css('#home')
-        return True
 
     def scroll_to_by_css(self, selector):
         """

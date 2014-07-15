@@ -1,12 +1,13 @@
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from django.conf import settings
-from django.utils.unittest.case import skipUnless
+from django.utils.unittest.case import skipUnless, skip
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from django.utils.translation import ugettext as _
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
-        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')\
+@skip('Skip this for now')
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
     def setUp(self):

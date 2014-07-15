@@ -32,9 +32,6 @@
         {% cache 2592000 templates LANGUAGE_CODE %}
             {% compress js %}
                 {{ block.super }}
-            {% endcompress %}
-
-            {% compress js %}
                 {% include "templates.hbs" %}
             {% endcompress %}
         {% endcache %}
@@ -48,8 +45,14 @@
     {{ block.super }}
 
     {# Addition for Bluebottle JS #}
-    <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
 
+    <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
+    
+    <script type="text/javascript" src="{% static 'js/members/controllers.js' %}"></script>
+
+    <!--members-->
+
+    <script type="text/javascript" src="{% static 'js/members/routes.js' %}"></script>
     <!--organization-->
     <script type="text/javascript" src="{% static 'js/organizations/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/organizations/controllers.js' %}"></script>

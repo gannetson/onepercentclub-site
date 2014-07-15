@@ -1,6 +1,6 @@
 import datetime
 from .fields import MoneyField
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
+from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
 from django.db.models import Q
 from django.db.models.aggregates import Count, Sum
@@ -18,19 +18,26 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
+
 #from apps.fund.models import Donation, DonationStatuses
+
+class ProjectPhaseLog(BaseProjectPhaseLog):
+    pass
 
 
 class ProjectManager(models.Manager):
 
     def search(self, query):
         qs = super(ProjectManager, self).get_query_set()
+
         # Apply filters
-        status = query.get('status', None)
-        if status == 7:
-            qs = qs.filter(status_id_in=[7, 8])
-        elif status:
-            qs = qs.filter(status_id=status)
+        status = query.getlist(u'status[]', None)
+        if status:
+            qs = qs.filter(status_id__in=status)
+        else:
+            status = query.get('status', None)
+            if status:
+                qs = qs.filter(status_id=status)
 
         country = query.get('country', None)
         if country:
@@ -51,29 +58,22 @@ class ProjectManager(models.Manager):
     def _ordering(self, ordering, queryset, status):
 
         if ordering == 'amount_asked':
-            qs = queryset.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
-                                       ProjectPhase.objects.get(slug="done-completed"),
-                                       ProjectPhase.objects.get(slug="done-incomplete")])
-            qs = qs.order_by('amount_asked')
+            queryset = queryset.order_by('amount_asked')
         elif ordering == 'deadline':
-            qs = queryset.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            qs = qs.order_by('deadline')
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
+            queryset = queryset.order_by('deadline')
         elif ordering == 'amount_needed':
-            qs = queryset.order_by('amount_needed')
-            qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
+            queryset = queryset.order_by('amount_needed')
+            queryset = queryset.filter(amount_needed__gt=0)
         elif ordering == 'newest':
-            qs = queryset.order_by('campaign_started')
-            qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
+            queryset = queryset.order_by('-campaign_started')
+            queryset = queryset.filter(amount_needed__gt=0)
         elif ordering == 'popularity':
-            qs = queryset.order_by('-popularity')
+            queryset = queryset.order_by('-popularity')
             if status == 5:
-                qs = qs.filter(amount_needed__gt=0)
+                queryset = queryset.filter(amount_needed__gt=0)
         elif ordering:
-            qs = queryset.order_by(ordering)
-        return qs
+            queryset = queryset.order_by(ordering)
+        return queryset
 
 
 class Project(BaseProject):
@@ -159,6 +159,8 @@ class Project(BaseProject):
             if not self.allow_overfunding:
                 self.status = ProjectPhase.objects.get(slug="done-complete")
                 self.campaign_ended = self.campaign_funded
+
+            self.save()
 
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
@@ -355,8 +357,9 @@ class ProjectBudgetLine(models.Model):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
 
-# FIXME: ProjectPhaseLog was removed here
-# Add a nice function/model/way to store status changes.
+class ProjectPhaseLog(BaseProjectPhaseLog):
+    pass
+
 
 class PartnerOrganization(models.Model):
     """

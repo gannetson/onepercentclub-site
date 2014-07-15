@@ -1,3 +1,7 @@
+import json
+import os
+import requests
+import base64
 from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
@@ -44,7 +48,7 @@ class OnePercentTestCase(InitProjectDataMixin, TestCase):
 
 class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
-    def login(self, username, password):
+    def login(self, username, password, wait_time=30):
         """
         Perform login operation on the website.
 
@@ -56,24 +60,29 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_itext('log in').first.click()
-
-        # Validate that we are on the intended page.
-        if not self.browser.is_text_present('LOG IN', wait_time=10):
-            return False
+        self.scroll_to_and_click_by_css('.nav-signup-login a')
+        self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
-        self.browser.fill('username', username)
-        self.browser.fill('password', password)
+        self.browser.find_by_css('input[name=username]').first.fill(username)
+        self.browser.find_by_css('input[type=password]').first.fill(password)
 
-        self.browser.find_by_value('Login').first.click()
+        self.wait_for_element_css("a[name=login]", timeout=10)
 
-        return self.browser.is_text_present('My 1%', wait_time=10)
+        self.browser.find_by_css("a[name=login]").first.click()
+
+        # FIXME: We should be checking some other state, maybe something in Ember
+        return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
-        return self.browser.visit('%(url)s/en/accounts/logout/' % {
-            'url': self.live_server_url
-        })
+        # Click user profile to open menu - mouse_over() only works for chrome
+        self.browser.find_by_css('.nav-member-dropdown').click()
+        
+        # Click the logout item
+        logout = '.nav-member-logout a'
+        self.wait_for_element_css(logout)
+        self.browser.find_by_css(logout).click()
+        self.assert_css('.nav-signup-login a')
 
     def visit_homepage(self, lang_code=None):
         """
@@ -85,4 +94,52 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.visit_path('', lang_code)
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
-        return self.wait_for_element_css('#home')
+        self.assert_css('#home')
+
+    def scroll_to_by_css(self, selector):
+        """
+        Overwrite this function so the elements don't scroll behind the top menu.
+        """
+
+        element = self.wait_for_element_css(selector)
+
+        if element:
+            y = int(element.location['y']) - 100
+            x = int(element.location['x'])
+            self.browser.execute_script("window.scrollTo(%s,%s)" % (x, y))
+
+        return element
+
+    def upload_screenshot(self):
+        client_id = os.environ.get('IMGUR_CLIENT_ID')
+        client_key = os.environ.get('IMGUR_CLIENT_SECRET')
+
+        if client_id and client_key:
+            client_auth = 'Client-ID {0}'.format(client_id)
+            headers = {'Authorization': client_auth}
+            url = 'https://api.imgur.com/3/upload.json'
+            filename = '/tmp/screenshot.png'
+
+            print 'Attempting to save screenshot...'
+            self.browser.driver.save_screenshot(filename)
+
+            response = requests.post(
+                url,
+                headers = headers,
+                data = {
+                    'key': client_key,
+                    'image': base64.b64encode(open(filename, 'rb').read()),
+                    'type': 'base64',
+                    'name': filename,
+                    'title': 'Travis Screenshot'
+                }
+            )
+
+            print 'Uploaded screenshot:'
+            data = json.loads(response.content)
+            print data['data']['link']
+            print response.content
+
+        else:
+            print 'Imgur API keys not found!'
+

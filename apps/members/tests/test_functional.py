@@ -7,7 +7,6 @@ from django.utils.translation import ugettext as _
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-@skip('Skip this for now')
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
     def setUp(self):
@@ -16,9 +15,6 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.visit_homepage()
         self.scroll_to_and_click_by_css('.nav-signup-login a')
         self.wait_for_element_css('.modal-fullscreen-content')
-
-    def tearDown(self):
-        pass
 
     def test_failed_login_missing_email(self):
         """ Confirm login fails without email and shows an error message """

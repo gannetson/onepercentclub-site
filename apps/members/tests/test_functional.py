@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
-        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')\
+        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 @skip('Skip this for now')
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 

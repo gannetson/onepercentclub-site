@@ -1,6 +1,36 @@
 /*
+  Setup user details for exception handling
+ */
+
+App.then(function(app) {
+    App.CurrentUser.find('current').then(function(user) {
+        if (typeof Raven == 'object') {
+            Raven.setUser({
+                id: user.get('id_for_ember'),
+                name: user.get('full_name'),
+                email: user.get('email'),
+            });
+        }
+    });
+
+    // Override the BB project / status search list
+    // TODO: we should just define the 'list' when initializing
+    //       and then BB should use it when setting up the list
+    App.ProjectPhase.find().then(function(data){
+        var list = [
+            {id: 5, name: gettext("Running campaigns")},
+            {id: [7,8], name: gettext("Finished campaigns")}
+        ];
+        App.ProjectPhaseSelectView.reopen({
+            content: list
+        });
+    });
+});
+
+/*
   Bluebottle Route Overrides
  */
+
 App.ApplicationRoute.reopen({
     actions: {
         addDonation: function (project, fundraiser) {
@@ -110,3 +140,30 @@ App.ApplicationView.reopen(App.EventMixin, {
 	}
 });
 
+
+// Enable Google Ad Words with Ember
+App.Router.reopen({
+
+    // If you want to add Google conversion codes to a route just add:
+    // googleConversion: {
+    //      label: 'my_page_label'
+    // }
+
+    didTransition: function(infos) {
+        this._super(infos);
+
+        var currentRoute = infos.get('lastObject').handler;
+        var gc = currentRoute.get('googleConversion');
+        Ember.run.next(function() {
+            if (gc &! DEBUG) {
+                var google_conversion_id = gc.id || 986941294;
+                var google_conversion_language = gc.language || 'en';
+                var google_conversion_format = gc.format || '3';
+                var google_conversion_color = gc.color || 'ffffff';
+                var google_conversion_label = gc.label;
+                var google_remarketing_only = false;
+                $.getScript("https://www.googleadservices.com/pagead/conversion.js");
+            }
+        });
+    }
+});

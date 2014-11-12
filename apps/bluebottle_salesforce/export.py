@@ -12,7 +12,7 @@ from apps.cowry_docdata.models import payment_method_mapping
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.tasks.models import Task, TaskMember
 
 USER_MODEL = get_user_model()
